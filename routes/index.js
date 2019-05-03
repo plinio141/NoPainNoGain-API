@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from './../config/config';
 import userModel from './../models/user';
 import officeModel from './../models/office';
+import cityModel from './../models/city';
 import mapErrorsLib from './../lib/mapErrors'
 
 const router = express.Router();
@@ -75,6 +76,32 @@ router.post('/register', async (req, res) =>  {
     res.send({
       success: true,
       message: 'user saved successful!'
+    });
+  });
+
+  router.get('/allCities', async (req, res) =>  {
+    let cities = await cityModel.find({});
+    return res.send({
+        success: true,
+        cities
+    });
+  });
+
+  router.get('/allOffices', async (req, res) =>  {
+    let city = await cityModel.findOne({code: req.query.city});
+    if(!!!city){
+        return res.send({
+            success: false,
+            errors: [{propertie:'city', message: 'city_not_exist'}],
+            message: 'city not exist!'
+        });
+    }
+    req.body.city = city._id;
+
+    let offices = await officeModel.find({city:city._id});
+    return res.send({
+        success: true,
+        offices
     });
   });
 
