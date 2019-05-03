@@ -9,8 +9,6 @@ let checkToken = (req, res, next) => {
             // Remove Bearer from string
             token = token.slice(7, token.length);
         }
-        console.log(token);
-        
         jwt.verify(token, config.secret, (err, decoded) => {
             if (err) {
                 return res.json({

@@ -15,7 +15,7 @@ import offices from './routes/offices';
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
 
 app.use((req, res, next) => {

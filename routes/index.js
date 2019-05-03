@@ -14,7 +14,7 @@ router.get('/', (req, res)=>{
 
 router.post('/login', async (req, res)=>{
     let { email, password } = req.body;
-    let user = await userModel.findOne({email});
+    let user = await userModel.findOne({email, role: "admin"});
     if(user){        
         let valid = await user.validPassword(password)
         if(valid){

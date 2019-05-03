@@ -6,6 +6,7 @@ import mapErrorsLib from './../lib/mapErrors';
 const router = express.Router();
 
 router.post('/new', async (req, res)=>{
+    console.log(req.body);
     let city = await cityModel.findOne({code: req.body.city});
     if(!!!city){
         return res.send({
