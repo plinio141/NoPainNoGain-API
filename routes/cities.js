@@ -5,8 +5,6 @@ import mapErrorsLib from './../lib/mapErrors';
 const router = express.Router();
 
 router.post('/new', async (req, res)=>{
-    console.log(req.body);
-    
     let city = new cityModel(req.body);
     try {
         await city.save();

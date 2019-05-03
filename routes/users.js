@@ -48,7 +48,6 @@ router.get('/search', async (req, res) =>  {
       message: 'city not exist!'
     });
   }
-
   let office = await officeModel.findOne({city:city._id, code: req.query.codeOffice});
   if(!!!office){
       return res.send({
@@ -57,9 +56,7 @@ router.get('/search', async (req, res) =>  {
           message: 'office not exist!'
       });
   }
-
-  let clients = await userModel.find({office:office._id}).lean();
-
+  let clients = await userModel.find({office:office._id});
   return res.send({success: true, clients});
 
 });
